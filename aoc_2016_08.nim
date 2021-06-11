@@ -43,10 +43,15 @@ proc solve1(input:seq[string]): int =
     
     discard execCmd "clear"
     for row in screen:
-      echo row
+      var output_row:string
+      for pixel in row:
+        if pixel == 1:
+          output_row = output_row & "█"
+        else:
+          output_row = output_row & " "
+      echo output_row
     sleep(10)
     
-  
   for row in screen:
     result += row.count(1) # high 151 
   
