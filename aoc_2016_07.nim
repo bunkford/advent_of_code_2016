@@ -19,7 +19,16 @@ proc solve1(input:seq[string]):int =
           inc(result)
           break block1
         
+proc solve2(input:seq[string]):int =
+  for line in input:
+    block block1:
+      if line.findAll(re"(?![^\[]*])(.)((?!\1).)(\1).*\[[^\]]*?\2\1\2[^\]]*?\]").len > 0 or line.findAll(re"\[[^\]]*?(.)((?!\1).)(\1)[^\]]*?\].*(?![^\[]*])\2\1\2").len > 0:
+        # checks to see if aba[bab] or [bab]aba has matches (either side of brackets)
+        inc(result)
+        break block1
+           
 
 var input = get_input(getAppDir() / "aoc_2016_07.txt")
 
 echo "Answer Part 1: ", solve1(input)
+echo "Answer Part 2: ", solve2(input) # high 472 low 235
