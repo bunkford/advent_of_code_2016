@@ -1,4 +1,8 @@
-import md5, strutils, nre
+import md5, nre
+
+#[
+  ! compile with -d:release or this is much slower
+]#
 
 proc solve1(input:string):int = 
   var i: int 
