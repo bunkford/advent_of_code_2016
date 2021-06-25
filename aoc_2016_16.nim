@@ -7,6 +7,14 @@ proc swap1and0(s: var string) =
     if s[i] == '1': s[i] = '0'
     elif s[i] == '0': s[i] = '1'
 
+proc newChecksum(s:string):string =
+  ## for some reason this is much faster
+  for i in countup(0, s.high, 2):
+    if s[i] == s[i + 1]:
+        result &= '1'
+    else:
+        result &= '0'
+
 proc checksum(s: string):string =
   for i in countup(0, s.high, 2):
     if s[i] & s[i+1] == "00" or s[i] & s[i+1] == "11":
@@ -22,13 +30,13 @@ proc solve1(input:string, size: int):string =
     b.swap1and0()
     a = a & $0 & b
   
-  var checksum = checksum(a[0..size-1])
+  var checksum = newChecksum(a[0..size-1])
   while checksum.len mod 2 == 0:
-    checksum = checksum(checksum)
+    checksum = newChecksum(checksum)
   return checksum
 
 
 let input = "10011111011011001"
 
 echo "Answer Part 1: ", solve1(input, 272)
-
+echo "Answer Part 2: ", solve1(input, 35651584)
