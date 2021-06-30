@@ -1,4 +1,4 @@
-import lists, tables
+import lists, tables, deques
 
 proc solve1(input:int):int =
   var lookup: Table[int, DoublyLinkedNode[int]]
@@ -39,9 +39,30 @@ proc solve1(input:int):int =
       cur = cur.next
    
    
+proc solve2(input:int):int =
+  var left = initDeque[int]()
+  var right = initDeque[int]()
 
+  for i in 1 .. input:
+    if i < input div 2:
+      left.addLast(i)
+    else:
+      right.addLast(i)
+
+  while left.len > 0 and right.len > 0:
+    if left.len > right.len:
+      left.popLast()
+    else:
+      right.popLast()
+    
+    # rotate
+    right.addFirst(left.popFirst())
+    left.addLast(right.popLast())
+  
+  return left[0] or right[0]
 
 let input = 3014603
 
 echo "Answer Part 1: ", solve1(input)
+echo "Answer Part 2: ", solve2(input)
 
