@@ -58,7 +58,16 @@ proc solve1(input:seq[string], s:string):string =
       else:
         discard
     
-    
+proc solve2(input:seq[string], s:string):string =
+  var se = s.toSeq()
+  se.sort()
+  while se.nextPermutation():
+    if solve1(input, se.join()) == s:
+      return se.join()
+
+
+
 let input = get_input(getAppDir() / "aoc_2016_21.txt")
 
-echo "Answer Part 1: ", solve1(input, "abcdefgh") 
+echo "Answer Part 1: ", solve1(input, "fdhbcgea") 
+echo "Answer Part 2: ", solve2(input, "fbgdceah") 
